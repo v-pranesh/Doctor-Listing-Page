@@ -1,253 +1,63 @@
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: 'Arial', sans-serif;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find a Doctor</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="search-container">
+                <input type="text" class="search-bar" placeholder="Search doctors by name...">
+                <div class="suggestions" id="search-suggestions"></div>
+            </div>
+        </header>
+        
+        <div class="main-content">
+            <div class="filter-panel">
+                <div class="filter-section">
+                    <h3 class="filter-title">Consultation Type</h3>
+                    <div class="radio-group" id="consultation-filter">
+                        <div class="radio-option">
+                            <input type="radio" id="all" name="consultation" value="all" checked>
+                            <label for="all">All</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="video" name="consultation" value="Video Consult">
+                            <label for="video">Video Consult</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="clinic" name="consultation" value="In Clinic">
+                            <label for="clinic">In Clinic</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="filter-section">
+                    <h3 class="filter-title">Specialities</h3>
+                    <div class="checkbox-group" id="speciality-filters">
+                        <!-- Specialities will be added dynamically -->
+                    </div>
+                </div>
+                
+                <div class="filter-section">
+                    <h3 class="filter-title">Sort By</h3>
+                    <select class="sort-select" id="sort-filter">
+                        <option value="default">Recommended</option>
+                        <option value="fees-asc">Fees - Low to High</option>
+                        <option value="experience-desc">Experience - High to Low</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="doctor-list" id="doctor-list">
+                <!-- Doctor cards will be added dynamically -->
+            </div>
+        </div>
+    </div>
 
-body {
-    background-color: #f5f7fa;
-    color: #333;
-    line-height: 1.6;
-}
-
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-}
-
-/* Header Styles */
-header {
-    background-color: #fff;
-    padding: 20px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-}
-
-.search-container {
-    position: relative;
-    max-width: 700px;
-    margin: 0 auto;
-}
-
-.search-bar {
-    width: 100%;
-    padding: 15px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 16px;
-    outline: none;
-}
-
-.search-bar:focus {
-    border-color: #4a90e2;
-    box-shadow: 0 0 5px rgba(74, 144, 226, 0.3);
-}
-
-.suggestions {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 100%;
-    background: white;
-    border: 1px solid #ddd;
-    border-top: none;
-    border-radius: 0 0 5px 5px;
-    z-index: 10;
-    display: none;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    max-height: 300px;
-    overflow-y: auto;
-}
-
-.suggestion-item {
-    padding: 10px 15px;
-    cursor: pointer;
-}
-
-.suggestion-item:hover {
-    background-color: #f5f7fa;
-}
-
-.highlight {
-    font-weight: bold;
-    color: #4a90e2;
-}
-
-/* Main Content Layout */
-.main-content {
-    display: flex;
-    gap: 20px;
-}
-
-/* Filter Panel Styles */
-.filter-panel {
-    width: 300px;
-    background: white;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    height: fit-content;
-}
-
-.filter-section {
-    margin-bottom: 25px;
-}
-
-.filter-title {
-    font-size: 18px;
-    margin-bottom: 15px;
-    color: #333;
-    font-weight: 600;
-}
-
-.radio-group, .checkbox-group {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.radio-option, .checkbox-option {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.radio-option label, .checkbox-option label {
-    cursor: pointer;
-}
-
-.sort-select {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    background-color: white;
-    cursor: pointer;
-}
-
-/* Doctor List Styles */
-.doctor-list {
-    flex: 1;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 20px;
-}
-
-.doctor-card {
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    transition: transform 0.2s ease;
-}
-
-.doctor-card:hover {
-    transform: translateY(-5px);
-}
-
-.doctor-image {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-bottom: 15px;
-}
-
-.doctor-name {
-    font-size: 18px;
-    font-weight: 600;
-    margin-bottom: 5px;
-    color: #333;
-}
-
-.doctor-specialties {
-    color: #4a90e2;
-    margin-bottom: 10px;
-    font-size: 14px;
-}
-
-.doctor-details {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    font-size: 14px;
-    color: #666;
-}
-
-.doctor-detail {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-
-.doctor-buttons {
-    display: flex;
-    margin-top: 15px;
-    gap: 10px;
-}
-
-.book-btn {
-    padding: 8px 15px;
-    background-color: #4a90e2;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    flex: 1;
-    font-size: 14px;
-    transition: background-color 0.2s;
-}
-
-.book-btn:hover {
-    background-color: #357abf;
-}
-
-.video-tag, .clinic-tag {
-    font-size: 12px;
-    padding: 4px 8px;
-    border-radius: 4px;
-    display: inline-block;
-    margin-top: 10px;
-}
-
-.video-tag {
-    background-color: #e6f7ff;
-    color: #0096ff;
-}
-
-.clinic-tag {
-    background-color: #e6ffed;
-    color: #52c41a;
-}
-
-.no-results {
-    grid-column: 1 / -1;
-    text-align: center;
-    padding: 40px;
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-/* Responsive styles */
-@media (max-width: 900px) {
-    .main-content {
-        flex-direction: column;
-    }
-    
-    .filter-panel {
-        width: 100%;
-    }
-}
-
-@media (max-width: 600px) {
-    .doctor-list {
-        grid-template-columns: 1fr;
-    }
-    
-    .container {
-        padding: 10px;
-    }
-}
+    <script src="script.js"></script>
+</body>
+</html>
