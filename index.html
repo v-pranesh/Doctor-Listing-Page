@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find a Doctor</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="search-container">
+                <input type="text" class="search-bar" placeholder="Search doctors by name...">
+                <div class="suggestions" id="search-suggestions"></div>
+            </div>
+        </header>
+        
+        <div class="main-content">
+            <div class="filter-panel">
+                <div class="filter-section">
+                    <h3 class="filter-title">Consultation Type</h3>
+                    <div class="radio-group" id="consultation-filter">
+                        <div class="radio-option">
+                            <input type="radio" id="all" name="consultation" value="all" checked>
+                            <label for="all">All</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="video" name="consultation" value="Video Consult">
+                            <label for="video">Video Consult</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="clinic" name="consultation" value="In Clinic">
+                            <label for="clinic">In Clinic</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="filter-section">
+                    <h3 class="filter-title">Specialities</h3>
+                    <div class="checkbox-group" id="speciality-filters">
+                        <!-- Specialities will be added dynamically -->
+                    </div>
+                </div>
+                
+                <div class="filter-section">
+                    <h3 class="filter-title">Sort By</h3>
+                    <select class="sort-select" id="sort-filter">
+                        <option value="default">Recommended</option>
+                        <option value="fees-asc">Fees - Low to High</option>
+                        <option value="experience-desc">Experience - High to Low</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="doctor-list" id="doctor-list">
+                <!-- Doctor cards will be added dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
